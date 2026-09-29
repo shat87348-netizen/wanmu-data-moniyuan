@@ -1,0 +1,140 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/* 主题机制照搬 web1（data-processing-frontend）项目：
+   - :root.dark / :root.light 控制明暗模式；
+   - :root[data-app-theme="..."] 控制主色（web1 原有三色：军绿/科技蓝/星空紫），
+     这里在同一套机制下新增一个黑白（mono）主题。
+   两个维度由 useAppTheme.ts 独立切换、组合生效，与 web1 完全一致。 */
+:root {
+  --ui-radius: .25rem;
+  --ui-color-primary-50: var(--color-blue-50);
+  --ui-color-primary-100: var(--color-blue-100);
+  --ui-color-primary-200: var(--color-blue-200);
+  --ui-color-primary-300: var(--color-blue-300);
+  --ui-color-primary-400: var(--color-blue-400);
+  --ui-color-primary-500: var(--color-blue-500);
+  --ui-color-primary-600: var(--color-blue-600);
+  --ui-color-primary-700: var(--color-blue-700);
+  --ui-color-primary-800: var(--color-blue-800);
+  --ui-color-primary-900: var(--color-blue-900);
+  --ui-color-primary-950: var(--color-blue-950);
+  --ui-color-neutral-50: var(--color-old-neutral-50);
+  --ui-color-neutral-100: var(--color-old-neutral-100);
+  --ui-color-neutral-200: var(--color-old-neutral-200);
+  --ui-color-neutral-300: var(--color-old-neutral-300);
+  --ui-color-neutral-400: var(--color-old-neutral-400);
+  --ui-color-neutral-500: var(--color-old-neutral-500);
+  --ui-color-neutral-600: var(--color-old-neutral-600);
+  --ui-color-neutral-700: var(--color-old-neutral-700);
+  --ui-color-neutral-800: var(--color-old-neutral-800);
+  --ui-color-neutral-900: var(--color-old-neutral-900);
+  --ui-color-neutral-950: var(--color-old-neutral-950);
+  --ui-primary: var(--ui-color-primary-500);
+  font-family: Inter, "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+}
+
+:root.dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-text-dimmed: color-mix(in oklab, var(--ui-color-neutral-500) 94%, var(--ui-color-primary-300));
+  --ui-text-muted: color-mix(in oklab, var(--ui-color-neutral-400) 94%, var(--ui-color-primary-300));
+  --ui-text-toned: color-mix(in oklab, var(--ui-color-neutral-300) 94%, var(--ui-color-primary-200));
+  --ui-text: color-mix(in oklab, var(--ui-color-neutral-200) 95%, var(--ui-color-primary-100));
+  --ui-text-highlighted: color-mix(in oklab, white 95%, var(--ui-color-primary-100));
+  --ui-bg: color-mix(in oklab, var(--ui-color-neutral-950) 90%, var(--ui-color-primary-950));
+  --ui-bg-muted: color-mix(in oklab, var(--ui-color-neutral-900) 88%, var(--ui-color-primary-950));
+  --ui-bg-elevated: color-mix(in oklab, var(--ui-color-neutral-900) 84%, var(--ui-color-primary-900));
+  --ui-bg-accented: color-mix(in oklab, var(--ui-color-neutral-800) 76%, var(--ui-color-primary-900));
+  --ui-border: color-mix(in oklab, var(--ui-color-neutral-800) 78%, var(--ui-color-primary-800));
+  --ui-border-muted: color-mix(in oklab, var(--ui-color-neutral-800) 88%, var(--ui-color-primary-900));
+  --ui-border-accented: color-mix(in oklab, var(--ui-color-neutral-700) 70%, var(--ui-color-primary-700));
+  color-scheme: dark;
+}
+
+:root.light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-text-dimmed: color-mix(in oklab, var(--ui-color-neutral-400) 94%, var(--ui-color-primary-500));
+  --ui-text-muted: color-mix(in oklab, var(--ui-color-neutral-500) 94%, var(--ui-color-primary-600));
+  --ui-text-toned: color-mix(in oklab, var(--ui-color-neutral-600) 94%, var(--ui-color-primary-700));
+  --ui-text: color-mix(in oklab, var(--ui-color-neutral-700) 95%, var(--ui-color-primary-800));
+  --ui-text-highlighted: color-mix(in oklab, var(--ui-color-neutral-900) 94%, var(--ui-color-primary-950));
+  --ui-bg: color-mix(in oklab, white 94%, var(--ui-color-primary-50));
+  --ui-bg-muted: color-mix(in oklab, var(--ui-color-neutral-50) 88%, var(--ui-color-primary-50));
+  --ui-bg-elevated: color-mix(in oklab, white 90%, var(--ui-color-primary-50));
+  --ui-bg-accented: color-mix(in oklab, var(--ui-color-neutral-100) 75%, var(--ui-color-primary-100));
+  --ui-border: color-mix(in oklab, var(--ui-color-neutral-200) 78%, var(--ui-color-primary-200));
+  --ui-border-muted: color-mix(in oklab, var(--ui-color-neutral-200) 88%, var(--ui-color-primary-100));
+  --ui-border-accented: color-mix(in oklab, var(--ui-color-neutral-300) 70%, var(--ui-color-primary-300));
+  color-scheme: light;
+}
+
+/* 三色主题：与 web1 完全一致的三个主色（军绿/科技蓝/星空紫）。 */
+:root[data-app-theme="military"] {
+  --ui-color-primary-50: var(--color-green-50);
+  --ui-color-primary-100: var(--color-green-100);
+  --ui-color-primary-200: var(--color-green-200);
+  --ui-color-primary-300: var(--color-green-300);
+  --ui-color-primary-400: var(--color-green-400);
+  --ui-color-primary-500: var(--color-green-500);
+  --ui-color-primary-600: var(--color-green-600);
+  --ui-color-primary-700: var(--color-green-700);
+  --ui-color-primary-800: var(--color-green-800);
+  --ui-color-primary-900: var(--color-green-900);
+  --ui-color-primary-950: var(--color-green-950);
+}
+
+:root[data-app-theme="style1"] {
+  --ui-color-primary-50: var(--color-blue-50);
+  --ui-color-primary-100: var(--color-blue-100);
+  --ui-color-primary-200: var(--color-blue-200);
+  --ui-color-primary-300: var(--color-blue-300);
+  --ui-color-primary-400: var(--color-blue-400);
+  --ui-color-primary-500: var(--color-blue-500);
+  --ui-color-primary-600: var(--color-blue-600);
+  --ui-color-primary-700: var(--color-blue-700);
+  --ui-color-primary-800: var(--color-blue-800);
+  --ui-color-primary-900: var(--color-blue-900);
+  --ui-color-primary-950: var(--color-blue-950);
+}
+
+:root[data-app-theme="style2"] {
+  --ui-color-primary-50: var(--color-violet-50);
+  --ui-color-primary-100: var(--color-violet-100);
+  --ui-color-primary-200: var(--color-violet-200);
+  --ui-color-primary-300: var(--color-violet-300);
+  --ui-color-primary-400: var(--color-violet-400);
+  --ui-color-primary-500: var(--color-violet-500);
+  --ui-color-primary-600: var(--color-violet-600);
+  --ui-color-primary-700: var(--color-violet-700);
+  --ui-color-primary-800: var(--color-violet-800);
+  --ui-color-primary-900: var(--color-violet-900);
+  --ui-color-primary-950: var(--color-violet-950);
+}
+
+/* 黑白主题（本模块新增，web1 没有）：主色直接取中性灰阶，不带任何色相。 */
+:root[data-app-theme="mono"] {
+  --ui-color-primary-50: var(--color-old-neutral-50);
+  --ui-color-primary-100: var(--color-old-neutral-100);
+  --ui-color-primary-200: var(--color-old-neutral-200);
+  --ui-color-primary-300: var(--color-old-neutral-300);
+  --ui-color-primary-400: var(--color-old-neutral-400);
+  --ui-color-primary-500: var(--color-old-neutral-500);
+  --ui-color-primary-600: var(--color-old-neutral-600);
+  --ui-color-primary-700: var(--color-old-neutral-700);
+  --ui-color-primary-800: var(--color-old-neutral-800);
+  --ui-color-primary-900: var(--color-old-neutral-900);
+  --ui-color-primary-950: var(--color-old-neutral-950);
+}
+
+html, body, #__nuxt { min-height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ui-bg);
+  color: var(--ui-text);
+}
+
+.app-input, .app-select { width: 100%; min-width: 0; }
+.app-select { justify-content: space-between; }
+.table-wrap [data-slot="root"] { width: 100%; }
+[data-reka-popper-content-wrapper] { z-index: 80 !important; }
